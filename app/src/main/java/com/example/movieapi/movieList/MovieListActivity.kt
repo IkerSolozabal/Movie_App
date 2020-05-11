@@ -100,7 +100,7 @@ class MovieListActivity : AppCompatActivity(), MovieListPresenter.View {
     }
 
     override fun passMovieCredit(movieCredit: MovieCredit) {
-        TODO("Not yet implemented")
+
     }
 
     //override fun passMovieCredit(movieCredit: MovieCredit) {
