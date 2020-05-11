@@ -3,8 +3,9 @@ package com.example.movieapi.movieList
 import android.accounts.NetworkErrorException
 import com.example.movieapi.data.Repository.Remote.RetrofitRemoteRepository
 import com.example.movieapi.data.Repository.RemoteRepository
+import com.example.movieapi.data.model.MovieCredit
+import com.example.movieapi.data.model.MovieDetail
 import com.example.movieapi.data.model.Movies
-import com.example.movieapi.data.network.movieApiFactory
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,20 +14,63 @@ import kotlinx.coroutines.withContext
 
 class MovieListPresenter(private val view: View) {
 
-    private val movieAPI = movieApiFactory.get()
-
     private val remoteRepository: RemoteRepository = RetrofitRemoteRepository()
 
-    fun init() {
+    fun getPopularMovies() {
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 val movieList = withContext(Dispatchers.IO) {
 
                     remoteRepository.getPopularMovies()
-                    //remoteRepository.getMovieByName("was")
                 }
                 view.showMovieList(movieList)
+            } catch (e: NetworkErrorException) {
+                view.showError(e.message!!)
+            }
+        }
+    }
+
+    fun getMoviesByName(movieName: String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val movieList = withContext(Dispatchers.IO) {
+
+
+                    remoteRepository.getMovieByName(movieName)
+                }
+                view.showMovieList(movieList)
+            } catch (e: NetworkErrorException) {
+                view.showError(e.message!!)
+            }
+        }
+    }
+
+    fun getMovieById(id: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val MovieDetail = withContext(Dispatchers.IO) {
+
+                    remoteRepository.getMovieById(id)
+                }
+                view.showMovie(MovieDetail)
+
+            } catch (e: NetworkErrorException) {
+                view.showError(e.message!!)
+            }
+        }
+    }
+
+    fun getCastById(id: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val MovieCredit = withContext(Dispatchers.IO) {
+
+                    remoteRepository.getCastById(id)
+                }
+                view.passMovieCredit(MovieCredit)
+
             } catch (e: NetworkErrorException) {
                 view.showError(e.message!!)
             }
@@ -36,6 +80,8 @@ class MovieListPresenter(private val view: View) {
     interface View {
         fun showMovieList(weatherList: List<Movies>)
         fun showError(message: String)
+        fun showMovie(movieDetail: MovieDetail)
+        fun passMovieCredit(movieCredit: MovieCredit)
     }
 
 

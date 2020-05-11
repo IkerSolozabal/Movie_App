@@ -18,7 +18,7 @@ class RetrofitRemoteRepository : RemoteRepository {
             return response.moviesList
 
         } catch (e: Exception) {
-            throw NetworkErrorException("Error fetching weather data")
+            throw NetworkErrorException("Error fetching data")
             //return emptyList()
         }
     }
@@ -29,7 +29,7 @@ class RetrofitRemoteRepository : RemoteRepository {
             return response.moviesList
 
         } catch (e: Exception) {
-            throw NetworkErrorException("Error fetching weather data")
+            throw NetworkErrorException("Error fetching data")
             //return emptyList()
         }
     }
@@ -40,18 +40,18 @@ class RetrofitRemoteRepository : RemoteRepository {
             return response
 
         } catch (e: Exception) {
-            throw NetworkErrorException("Error fetching weather data")
+            throw NetworkErrorException("Error fetching data")
             //return emptyList()
         }
     }
 
-    override suspend fun etCastById(id: String): MovieCredit {
+    override suspend fun getCastById(id: String): MovieCredit {
         try {
             val response = movieApi.getCastById(id)
             return response
 
         } catch (e: Exception) {
-            throw NetworkErrorException("Error fetching weather data")
+            throw NetworkErrorException("Error fetchings data")
             //return emptyList()
         }
     }

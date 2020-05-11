@@ -6,13 +6,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movieapi.MovieDetail.MovieDetailActivity
 import com.example.movieapi.R
+import com.example.movieapi.data.model.MovieCredit
+import com.example.movieapi.data.model.MovieDetail
 import com.example.movieapi.data.model.Movies
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
@@ -28,6 +30,10 @@ class MovieListActivity : AppCompatActivity(), MovieListPresenter.View {
                 this@MovieListActivity, "${movies.title}",
                 Toast.LENGTH_SHORT
             ).show()
+
+            presenter.getMovieById("${movies.id}")
+            presenter.getCastById("${movies.id}")
+
         }
 
     }
@@ -48,42 +54,15 @@ class MovieListActivity : AppCompatActivity(), MovieListPresenter.View {
                 (movieList.layoutManager as LinearLayoutManager).orientation
             )
         )
-        presenter.init()
+        presenter.getPopularMovies()
 
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        val manager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as SearchView
         return true
         //super.onCreateOptionsMenu(menu)
-
-        searchView.setSearchableInfo(manager.getSearchableInfo(componentName))
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView.clearFocus()
-                searchView.setQuery("", false)
-                searchItem.collapseActionView()
-                Toast.makeText(this@MovieListActivity, "Looking for $query", Toast.LENGTH_SHORT)
-                    .show()
-                return true
-            }
-
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Toast.makeText(
-                    this@MovieListActivity,
-                    "Lookieng for $newText",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                return false
-            }
-        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -100,7 +79,34 @@ class MovieListActivity : AppCompatActivity(), MovieListPresenter.View {
 
     override fun showError(message: String) {
 
+        Toast.makeText(
+            this@MovieListActivity, message,
+            Toast.LENGTH_SHORT
+        ).show()
 
     }
+
+    override fun showMovie(movieDetail: MovieDetail) {
+        val intent =
+            Intent(this@MovieListActivity, MovieDetailActivity::class.java)
+
+        intent.putExtra("title", "${movieDetail.title}")
+        intent.putExtra("voteAverage", "${movieDetail.voteAverage}")
+        intent.putExtra("releaseDate", "${movieDetail.releaseDate}")
+        intent.putExtra("image", "${movieDetail.image}")
+        intent.putExtra("overview", "${movieDetail.overview}")
+
+        startActivity(intent)
+    }
+
+    override fun passMovieCredit(movieCredit: MovieCredit) {
+        TODO("Not yet implemented")
+    }
+
+    //override fun passMovieCredit(movieCredit: MovieCredit) {
+    //intent.putExtra("cast", "${movieCredit.cast}")
+    //intent.putExtra("voteAverage", "${movieCredit.director}")
+    //  startActivity(intent)
+    //}
 
 }

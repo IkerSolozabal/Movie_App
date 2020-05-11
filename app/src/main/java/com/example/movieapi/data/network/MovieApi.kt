@@ -16,10 +16,10 @@ interface MovieApi {
     @GET("search/movie?api_key=fc10596101cb4714add74dcb40292721&language=en-US&query={name}&page=3&include_adult=false")
     suspend fun getMovieByName(@Path("name") name: String): movieByNameResponse
 
-    @GET("{id}?api_key=fc10596101cb4714add74dcb40292721&language=en-US")
+    @GET("movie/{id}?api_key=fc10596101cb4714add74dcb40292721&language=en-US")
     suspend fun getMovieById(@Path("id") id: String): MovieDetail
 
-    @GET("{id}?api_key=fc10596101cb4714add74dcb40292721&language=en-US")
+    @GET("movie/{id}/credits?api_key=fc10596101cb4714add74dcb40292721")
     suspend fun getCastById(@Path("id") id: String): MovieCredit
 }
 

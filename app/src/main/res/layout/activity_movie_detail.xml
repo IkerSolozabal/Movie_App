@@ -9,16 +9,16 @@
     <ImageView
         android:id="@+id/movieImage"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="140dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/movieVoteAverageTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/movieTotleTxt"
+        android:id="@+id/movieTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -32,10 +32,11 @@
         android:id="@+id/movieVoteAverageTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="8.9"
-        app:layout_constraintBaseline_toBaselineOf="@+id/movieTotleTxt"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieImage" />
 
     <TextView
         android:id="@+id/releseaseDate"
@@ -45,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:text="Year:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieTotleTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/movieTitleTxt" />
 
     <TextView
         android:id="@+id/movieGenre"
@@ -84,13 +85,14 @@
         android:layout_marginTop="16dp"
         android:text="2020-09-12"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/movieTotleTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/movieTitleTxt" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintBaseline_toBaselineOf="@+id/movieTitleTxt"
         app:layout_constraintGuide_begin="103dp" />
 
     <TextView
@@ -112,12 +114,11 @@
         app:layout_constraintTop_toBottomOf="@+id/movieGenreTxt" />
 
     <TextView
-        android:id="@+id/mavieCastTxt"
+        android:id="@+id/movieCastTxt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/movieDirectorTxt" />
@@ -133,17 +134,17 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mavieCastTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/movieCastTxt" />
 
     <ImageView
         android:id="@+id/shareIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bookmarkIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieOverviewTxt"
         app:srcCompat="@drawable/share_icon" />
 
     <ImageView

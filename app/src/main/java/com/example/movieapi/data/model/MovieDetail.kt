@@ -14,6 +14,6 @@ data class MovieDetail(
     val genre: String,
     @SerializedName("overview")
     val overview: String,
-    @SerializedName("backdrop_path")
+    @SerializedName("poster_path")
     val image: String
 )

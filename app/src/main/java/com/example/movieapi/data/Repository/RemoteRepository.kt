@@ -10,5 +10,5 @@ interface RemoteRepository {
     suspend fun getPopularMovies(): List<Movies>
     suspend fun getMovieByName(name: String): List<Movies>
     suspend fun getMovieById(id: String): MovieDetail
-    suspend fun etCastById(id: String): MovieCredit
+    suspend fun getCastById(id: String): MovieCredit
 }
