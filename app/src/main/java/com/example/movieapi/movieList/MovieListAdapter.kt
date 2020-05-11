@@ -7,14 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapi.R
-import com.example.movieapi.data.model.PopularMovies
+import com.example.movieapi.data.model.Movies
 import com.squareup.picasso.Picasso
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter(val onMovieClickListener: OnMovieClickListener) :
+    RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
 
-    private var movieList: List<PopularMovies> = emptyList()
+    private var movieList: List<Movies> = emptyList()
 
-    fun addItems(movieList: List<PopularMovies>) {
+    fun addItems(movieList: List<Movies>) {
         this.movieList = movieList
         notifyDataSetChanged()
     }
@@ -28,8 +29,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val weather = movieList[position]
-        holder.bind(weather)
+        val movie = movieList[position]
+        holder.bind(movie, onMovieClickListener)
     }
 
     class MovieViewHolder private constructor(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,13 +41,13 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         private var movieVoteAverage = view.findViewById<TextView>(R.id.movieVoteAverageTxt)
         private var movieOverview = view.findViewById<TextView>(R.id.movieOverviewTxt)
 
-
-        fun bind(popularMovies: PopularMovies) {
-            with(popularMovies) {
+        fun bind(movies: Movies, onMovieClickListener: OnMovieClickListener) {
+            with(movies) {
                 val imageUrl: String
 
                 if (posterPath == null) {
-                    imageUrl = "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg?w=400&h=400&crop=1&zoom=2"
+                    imageUrl =
+                        "https://siempreenmedio.files.wordpress.com/2014/04/no_disponible.jpg?w=400&h=400&crop=1&zoom=2"
                     movieOverview.maxLines = 3
                 } else {
                     imageUrl = "https://image.tmdb.org/t/p/w500${posterPath}"
@@ -58,7 +59,13 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 movieVoteAverage.text = voteAverage.toString()
                 movieOverview.text = overview
             }
+
+            itemView.setOnClickListener {
+                onMovieClickListener.onMovieClick(movies)
+            }
+
         }
+
 
         companion object {
             fun from(parent: ViewGroup): MovieViewHolder {
@@ -68,6 +75,11 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
             }
         }
 
+
+    }
+
+    interface OnMovieClickListener {
+        fun onMovieClick(movie: Movies)
     }
 
 }
