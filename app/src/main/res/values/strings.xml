@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">MovieApi</string>
+    <string name="app_name">Movie API</string>
+    <string name="title">Title:</string>
+    <string name="movieTitleTxt">Ad Astra</string>
+    <string name="releaseDate">Release Date:</string>
+    <string name="movieReleaseDateTxt">2019-09-17</string>
+    <string name="movieVoteAverageTxt">9</string>
+    <string name="overview">Overview:</string>
+    <string name="movieOverviewTxt">The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.</string>
+    <string name="searchHint">Buscar peliculas</string>
 </resources>
